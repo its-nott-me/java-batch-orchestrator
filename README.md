@@ -1,6 +1,6 @@
 # Java Batch Job Orchestrator
 
-A database-backed job execution service demonstrating practical Java backend engineering: bounded concurrency, atomic work claiming, explicit state transitions, delayed execution, retries, idempotent submissions, and worker-crash recovery.
+A database-backed job execution service demonstrating: bounded concurrency, atomic work claiming, explicit state transitions, delayed execution, retries, idempotent submissions, and worker-crash recovery.
 
 > **Scope:** This is a portfolio-grade reference implementation, not a drop-in replacement for a mature queue such as Amazon SQS, RabbitMQ, or Kafka.
 
@@ -26,7 +26,7 @@ A database-backed job execution service demonstrating practical Java backend eng
 8. **Observability.** Key-value lifecycle logs and Micrometer counters are exposed through Spring Boot Actuator.
 
 ## Architecture
-
+```mermaid
 flowchart TB
     Client["Client"]
 
@@ -78,10 +78,10 @@ flowchart TB
     classDef worker fill:#15803d,color:#fff,stroke:#166534
     class DB database
     class Pool,ExecutionService worker
-
+```
 
 ### Job lifecycle
-
+```mermaid
 flowchart TB
     Client["Client"]
 
@@ -133,6 +133,7 @@ flowchart TB
     classDef worker fill:#15803d,color:#fff,stroke:#166534
     class DB database
     class Pool,ExecutionService worker
+```
 
 An expired `RUNNING` lease is reconciled by the recovery scheduler. Depending on the remaining attempt budget, the job moves to `RETRY_WAIT` or `FAILED`. Terminal states (`SUCCEEDED`, `FAILED`, `CANCELLED`) cannot transition again. Worker-owned SQL updates check the expected current status and worker ID so stale workers cannot overwrite a newer worker's state.
 

@@ -1,0 +1,9 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/orchestrator
+    username: orchestrator
+    password: password
+    hikari:
+      maximum-pool-size: 12
+      minimum-idle: 2
+      connection-timeout: 3000

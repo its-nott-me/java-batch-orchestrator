@@ -1,0 +1,51 @@
+spring:
+  application:
+    name: java-batch-job-orchestrator
+  datasource:
+  
+    hikari:
+      maximum-pool-size: 12
+      minimum-idle: 2
+      connection-timeout: 3000
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:local}
+  flyway:
+    enabled: true
+  jackson:
+    default-property-inclusion: non_null
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
+
+server:
+  port: ${SERVER_PORT:8080}
+  shutdown: graceful
+
+orchestrator:
+  worker-threads: ${WORKER_THREADS:2}
+  dispatch-interval-ms: ${DISPATCH_INTERVAL_MS:500}
+  dispatch-initial-delay-ms: 500
+  lease-duration-seconds: ${LEASE_DURATION_SECONDS:60}
+  heartbeat-interval-ms: ${HEARTBEAT_INTERVAL_MS:10000}
+  heartbeat-initial-delay-ms: 10000
+  recovery-interval-ms: ${RECOVERY_INTERVAL_MS:5000}
+  recovery-initial-delay-ms: 5000
+  base-retry-delay-seconds: ${BASE_RETRY_DELAY_SECONDS:2}
+  max-retry-delay-seconds: ${MAX_RETRY_DELAY_SECONDS:60}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: never
+  info:
+    env:
+      enabled: false
+
+info:
+  app:
+    name: Java Batch Job Orchestrator
+    description: PostgreSQL-backed concurrent job execution service
+    version: 1.0.0

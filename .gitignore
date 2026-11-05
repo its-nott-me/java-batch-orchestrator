@@ -1,0 +1,11 @@
+/target/
+/.idea/
+/.vscode/
+*.iml
+*.log
+.env
+.DS_Store
+
+src/main/resources/application-local.yml
+src/main/resources/application-instance-b.yml
+src/main/resources/application-native-test.yml
